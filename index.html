@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    Приложение подсчета и вывода длительности видео в таблицу.
+  </title>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            №
+          </th>
+          <th>
+            Название видео
+          </th>
+          <th>
+            Длительность видео
+          </th>
+          <th>
+            Длительность всех видео
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>    
+    </table>
+  </div>
+  <div>
+    <label for="name">
+      Название видео:
+    </label>
+  </div>
+  <div>
+    <input id="name" type="text">
+    <p id="name-error" class="error-message"></p>
+  </div>
+  <div>
+    <label for="hours">
+      Количество в видео часов:
+    </label>
+  </div>
+  <div>
+    <input id="hours" type="text">
+    <p id="hours-error" class="error-message"></p>
+  </div>
+  <div>
+    <label for="minutes">
+      Количество в видео минут:
+    </label>
+  </div>
+  <div>
+    <input id="minutes" type="text">
+    <p id="minutes-error" class="error-message"></p>
+  </div>
+  <div>
+    <label for="seconds">
+      Количество в видео секунд:
+    </label>
+  </div>
+  <div>
+    <input id="seconds" type="text">
+    <p id="seconds-error" class="error-message"></p>
+  </div>
+  <div>
+    <button id="add">
+      Добавить запись в таблицу
+    </button>
+  </div>
+  <script src="assets/js/script.js"></script>  
+</body>
+</html>
