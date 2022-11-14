@@ -100,6 +100,14 @@ function checkRange(string, start, end) {
   const elementMinutes = document.getElementById(`${MINUTES_FIELD}`);
   const elementSeconds = document.getElementById(`${SECONDS_FIELD}`);
 
+  /* Помещаем элементы для сообщений об ошибках в соответ-
+  ствующие константы. */
+
+  const elementErrorName = document.getElementById(`${NAME_ERROR}`);
+  const elementErrorHours = document.getElementById(`${HOURS_ERROR}`);
+  const elementErrorMinutes = document.getElementById(`${MINUTES_ERROR}`);
+  const elementErrorSeconds = document.getElementById(`${SECONDS_ERROR}`);
+
   document.getElementById(`${ADD_RECORD}`).addEventListener('click', function() {
 
     /* Получаем данные из элемента input в виде строки и записываем их
@@ -111,13 +119,12 @@ function checkRange(string, start, end) {
     const minutesAsString = elementMinutes.value.trim();
     const secondsAsString = elementSeconds.value.trim();
 
-    /* Помещаем элементы для сообщений об ошибках в соответ-
-  ствующие константы. */
+    // Переменные для храния наличия ошибок в введенных пользоватем значений.
 
-    const elementErrorName = document.getElementById(`${NAME_ERROR}`);
-    const elementErrorHours = document.getElementById(`${HOURS_ERROR}`);
-    const elementErrorMinutes = document.getElementById(`${MINUTES_ERROR}`);
-    const elementErrorSeconds = document.getElementById(`${SECONDS_ERROR}`);
+    let arrayErrorsName = [];
+    let arrayErrorsHours = [];
+    let arrayErrorsMinutes = [];
+    let arrayErrorsSeconds = [];
 
   });
 })();
