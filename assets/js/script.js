@@ -20,5 +20,10 @@ const ADD_RECORD = "add";
 // События.
 
 (function() {
-  
+  // Обработчик события "click" на конопке с id "add".
+
+  document.getElementById(`${ADD_RECORD}`).addEventListener('click', function() {
+
+
+  });
 })();
