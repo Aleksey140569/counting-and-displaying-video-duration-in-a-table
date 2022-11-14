@@ -24,6 +24,70 @@ const ADD_RECORD = "add";
 
 // Функции.
 
+// Функция проверяет передаваеммую ей строку на нулевую длину.
+
+function checkForEmptyLine(string) {
+  let error = false;
+
+  if (string.length === 0) {
+    error = true;
+  }
+
+  return error;
+}
+
+/* Функция проверяет, есть ли в передаваемой строке какие-нибудь
+другие символы, кроме цифр: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. */
+
+function checkNotANumber(string) {
+  let error = false;
+
+  const checkAllDigits = [... string];
+
+  for (const item of checkAllDigits) {
+    switch(item) {
+      case '0':
+        break;
+      case '1':
+        break;
+      case '2':
+        break;
+      case '3':
+        break;
+      case '4':
+        break;
+      case '5':
+        break;
+      case '6':
+        break;
+      case '7':
+        break;
+      case '8':
+        break;
+      case '9':
+        break;
+      default:
+        error = true;
+    }
+  }
+
+  return error;
+}
+
+/* Функция проверяет введенное пользователем числовое значение,
+  входит оно в определенный числовой диапазон или нет. */
+
+function checkRange(string, start, end) {
+  const number = Number(string);
+  let error = false;
+
+  if (number < start || number > end) {
+    error = true;
+  }
+
+  return error;
+}
+
 // События.
 
 (function() {
@@ -46,6 +110,14 @@ const ADD_RECORD = "add";
     const hoursAsString = elementHours.value.trim();
     const minutesAsString = elementMinutes.value.trim();
     const secondsAsString = elementSeconds.value.trim();
+
+    /* Помещаем элементы для сообщений об ошибках в соответ-
+  ствующие константы. */
+
+    const elementErrorName = document.getElementById(`${NAME_ERROR}`);
+    const elementErrorHours = document.getElementById(`${HOURS_ERROR}`);
+    const elementErrorMinutes = document.getElementById(`${MINUTES_ERROR}`);
+    const elementErrorSeconds = document.getElementById(`${SECONDS_ERROR}`);
 
   });
 })();
