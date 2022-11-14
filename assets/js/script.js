@@ -22,6 +22,13 @@ const ADD_RECORD = "add";
 (function() {
   // Обработчик события "click" на конопке с id "add".
 
+  // Помещаем элементы input в соответствующие константы.
+
+  const elementName = document.getElementById(`${NAME_OF_VIDEO_FIELD}`);
+  const elementHours = document.getElementById(`${HOURS_FIELD}`);
+  const elementMinutes = document.getElementById(`${MINUTES_FIELD}`);
+  const elementSeconds = document.getElementById(`${SECONDS_FIELD}`);
+
   document.getElementById(`${ADD_RECORD}`).addEventListener('click', function() {
 
 
