@@ -4,6 +4,13 @@
 
 // Константы.
 
+// Константы индификаторов полей формы.
+
+const NAME_OF_VIDEO_FIELD = "name";
+const HOURS_FIELD = "hours";
+const MINUTES_FIELD = "minutes";
+const SECONDS_FIELD = "seconds";
+
 // Константы индификаторов для вывода ошибок.
 
 const NAME_ERROR = "name-error";
@@ -31,6 +38,14 @@ const ADD_RECORD = "add";
 
   document.getElementById(`${ADD_RECORD}`).addEventListener('click', function() {
 
+    /* Получаем данные из элемента input в виде строки и записываем их
+    в соотвествующие переменные. Название типа nameAsString говорит,
+    что данные имеют тип string */
+
+    const nameAsString = elementName.value.trim();
+    const hoursAsString = elementHours.value.trim();
+    const minutesAsString = elementMinutes.value.trim();
+    const secondsAsString = elementSeconds.value.trim();
 
   });
 })();
