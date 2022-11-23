@@ -218,7 +218,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
     arrayErrorsMinutes = [];
     arrayErrorsSeconds = [];
 
-	// Делаем проверку полей формы на корректность введенных значений.
+    // Делаем проверку полей формы на корректность введенных значений.
 
     // Валидируем поле name.
 
@@ -236,7 +236,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
 
     arrayErrorsSeconds = validateFormData(secondsAsString, ... VALIDATION_RULES_FOR_SECONDS);
 
-	/* Если пользователь ввел в поле допустимое значение меняем 
+   /* Если пользователь ввел в поле допустимое значение меняем 
     его стиль, чтоб дать понять пользователю, что данное поле он 
     заполнил правильно, если нет меняем стили у неверно заполненых
     элементов и даем ему подсказку, что он сделал не так. Если же
@@ -245,7 +245,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
 
     let nameOfVideo, hours, minutes, seconds;
 
-	if (arrayErrorsName.length === 0
+    if (arrayErrorsName.length === 0
       && arrayErrorsHours.length === 0
       && arrayErrorsMinutes.length === 0
       && arrayErrorsSeconds.length === 0) {
