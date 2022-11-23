@@ -4,6 +4,24 @@
 
 // Константы.
 
+// Сообщения об ошибках.
+
+const EMPTY_STRING = 'Данное поле не может быть пустым.';
+const NOT_A_NUMBER = 'В данное поле необходимо ввести 0 или целое число больше 0.';
+const OUT_OF_RANGE = 'В данное поле необходимо ввести 0 или целое число не больше 59.';
+
+// Правила валидации.
+
+const VALIDATION_RULES_FOR_NAME = [true, false, false, undefined, undefined];
+const VALIDATION_RULES_FOR_HOURS = [true, true, false, undefined, undefined];
+const VALIDATION_RULES_FOR_MINUTES = [true, true, true, 0, 59];
+const VALIDATION_RULES_FOR_SECONDS = [true, true, true, 0, 59];
+
+// Константы классов для элементов типа input.
+
+const ACCEPT_VALUE = "accept";
+const DO_NOT_ACCEPT_VALUE = "error";
+
 // Константы индификаторов полей формы.
 
 const NAME_OF_VIDEO_FIELD = "name";
@@ -26,7 +44,8 @@ const ADD_RECORD = "add";
 
 // Функция проверяет передаваеммую ей строку на нулевую длину.
 
-function checkForEmptyLine(string) {
+function checkForEmptyLine(string)
+{
   let error = false;
 
   if (string.length === 0) {
@@ -39,7 +58,8 @@ function checkForEmptyLine(string) {
 /* Функция проверяет, есть ли в передаваемой строке какие-нибудь
 другие символы, кроме цифр: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. */
 
-function checkNotANumber(string) {
+function checkNotANumber(string)
+{
   let error = false;
 
   const checkAllDigits = [... string];
@@ -77,7 +97,8 @@ function checkNotANumber(string) {
 /* Функция проверяет введенное пользователем числовое значение,
   входит оно в определенный числовой диапазон или нет. */
 
-function checkRange(string, start, end) {
+function checkRange(string, start, end)
+{
   const number = Number(string);
   let error = false;
 
@@ -88,10 +109,74 @@ function checkRange(string, start, end) {
   return error;
 }
 
+// Функция проверки правильности введенных данных.
+
+function checkData(string, func)
+{
+  return func(string);
+}
+
+// Функция валидации данных из формы
+
+function validateFormData(string, emptyLine, notANumber, range, start, end)
+{
+  let errors = [];
+  let errorEmptyLine = false;
+  let errorNotANumber = false;
+  let errorRange = false;
+
+  if (emptyLine) {
+    errorEmptyLine = checkData(string, checkForEmptyLine);
+
+    if (errorEmptyLine) {
+      errors.push(true);
+      errors.push(`${EMPTY_STRING}`);
+    }
+  }
+
+  if (notANumber) {
+    errorNotANumber = checkData(string, checkNotANumber);
+
+    if (errorNotANumber) {
+      if (errors.length === 0) {
+        errors.push(true);
+        errors.push(`${NOT_A_NUMBER}`);
+      } else {
+        errors[1] = `${NOT_A_NUMBER}`;
+      }
+    }
+  }
+
+  if (range) {
+    errorRange = checkData(string, checkRange
+      .bind(
+        checkRange,
+        string,
+        start,
+        end
+      )
+    );
+
+    if (errorRange) {
+      if (errors.length === 0) {
+        errors.push(true);
+        errors.push(`${OUT_OF_RANGE}`);
+      } else {
+        errors[1] = `${OUT_OF_RANGE}`;
+      }
+    }
+  }
+
+  return errors;
+}
+
 // События.
 
 (function() {
-  // Обработчик события "click" на конопке с id "add".
+
+  // Объявляем массив, в котором будем хранить всю необходимую для построения таблицы информацию.
+
+  let mainArray = summary;
 
   // Помещаем элементы input в соответствующие константы.
 
@@ -121,10 +206,183 @@ function checkRange(string, start, end) {
 
     // Переменные для храния наличия ошибок в введенных пользоватем значений.
 
-    let arrayErrorsName = [];
-    let arrayErrorsHours = [];
-    let arrayErrorsMinutes = [];
-    let arrayErrorsSeconds = [];
+    let arrayErrorsName;
+    let arrayErrorsHours;
+    let arrayErrorsMinutes;
+    let arrayErrorsSeconds;
 
+	arrayErrorsName = [];
+    arrayErrorsHours = [];
+    arrayErrorsMinutes = [];
+    arrayErrorsSeconds = [];
+
+	// Делаем проверку полей формы на корректность введенных значений.
+
+    // Валидируем поле name.
+
+    arrayErrorsName = validateFormData(nameAsString, ... VALIDATION_RULES_FOR_NAME);
+
+    // Валидируем поле hours.
+
+    arrayErrorsHours = validateFormData(hoursAsString, ... VALIDATION_RULES_FOR_HOURS);
+
+    // Валидируем поле minutes.
+
+    arrayErrorsMinutes = validateFormData(minutesAsString, ... VALIDATION_RULES_FOR_MINUTES);
+
+    // Валидируем поле minutes.
+
+    arrayErrorsSeconds = validateFormData(secondsAsString, ... VALIDATION_RULES_FOR_SECONDS);
+
+	/* Если пользователь ввел в поле допустимое значение меняем его стиль, чтоб дать понять пользователю, что данное поле он заполнил правильно, если нет меняем стили у неверно заполненых элементов и даем ему подсказку, что он сделал не так. Если же все поля заполнены правильно, то присваиваем переменным name, hours, minutes и seconds введенные пользователем значения */
+
+    let nameOfVideo, hours, minutes, seconds;
+
+	if (arrayErrorsName.length === 0
+      && arrayErrorsHours.length === 0
+      && arrayErrorsMinutes.length === 0
+      && arrayErrorsSeconds.length === 0) {
+
+      // Все поля заполнены правильно, поэтому присваиваем значения полей переменным.
+
+      nameOfVideo = nameAsString;
+      hours = Number(hoursAsString);
+      minutes = Number(minutesAsString);
+      seconds = Number(secondsAsString);
+
+      // Так как мы не знаем какие классы были добавлены к полям ранее, очищаем список классов у полей.
+
+      if (elementName.classList.contains(`${ACCEPT_VALUE}`)) {
+        elementName.classList.remove(`${ACCEPT_VALUE}`);
+      }
+
+      if (elementName.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+        elementName.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+      }
+
+      if (elementHours.classList.contains(`${ACCEPT_VALUE}`)) {
+        elementHours.classList.remove(`${ACCEPT_VALUE}`);
+      }
+
+      if (elementHours.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+        elementHours.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+      }
+
+      if (elementMinutes.classList.contains(`${ACCEPT_VALUE}`)) {
+        elementMinutes.classList.remove(`${ACCEPT_VALUE}`);
+      }
+
+      if (elementMinutes.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+        elementMinutes.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+      }
+
+      if (elementSeconds.classList.contains(`${ACCEPT_VALUE}`)) {
+        elementSeconds.classList.remove(`${ACCEPT_VALUE}`);
+      }
+
+      if (elementSeconds.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+        elementSeconds.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+      }
+
+      // Так как мы не знаем вводил ли до этого пользователь недопустимые значения в поля или нет, мы очищаем все сообщения об ошибках.
+
+      elementErrorName.innerHTML = "";
+      elementErrorHours.innerHTML = "";
+      elementErrorMinutes.innerHTML = "";
+      elementErrorSeconds.innerHTML = "";
+
+      // И в заключении мы заменяем на пустую строку все значения, которые пользователь ввел.
+
+      elementName.value = "";
+      elementHours.value = "";
+      elementMinutes.value = "";
+      elementSeconds.value = "";
+
+      let internalArray = [];
+
+      internalArray.push(nameOfVideo);
+
+      let timeAsString = convertTimeToString(hours, minutes, seconds);
+
+      internalArray.push(timeAsString);
+
+      totalVideoDuration = totalVideoDuration + convertTimeToSeconds(hours, minutes, seconds);
+
+      let totalTimeAsString = convertSecondsToTime(totalVideoDuration);
+
+      internalArray.push(totalTimeAsString);
+
+      mainArray.push(internalArray);
+
+      displayTable(mainArray, tbody);
+
+    } else {
+
+      // Задаем стилевое оформление поля name, в зависимости от корректности введенного пользователем значения.
+
+      if (arrayErrorsName.length === 0) {
+        elementName.classList = "";
+        elementName.classList.add(`${ACCEPT_VALUE}`);
+        elementErrorName.innerHTML = "";
+      } else {
+        elementName.classList = "";
+        elementName.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+        elementErrorName.innerHTML = arrayErrorsName[1];
+      }
+
+      // Задаем стилевое оформление поля hours, в зависимости от корректности введенного пользователем значения.
+
+      if (arrayErrorsHours.length === 0) {
+        if (elementHours.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+          elementHours.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+        }
+
+        elementHours.classList.add(`${ACCEPT_VALUE}`);
+        elementErrorHours.innerHTML = "";
+      } else {
+        if (elementHours.classList.contains(`${ACCEPT_VALUE}`)) {
+          elementHours.classList.remove(`${ACCEPT_VALUE}`);
+        }
+
+        elementHours.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+        elementErrorHours.innerHTML = arrayErrorsHours[1];
+      }
+
+      // Задаем стилевое оформление поля minutes, в зависимости от корректности введенного пользователем значения.
+
+      if (arrayErrorsMinutes.length === 0) {
+        if (elementMinutes.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+          elementMinutes.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+        }
+
+        elementMinutes.classList.add(`${ACCEPT_VALUE}`);
+        elementErrorMinutes.innerHTML = "";
+      } else {
+        if (elementMinutes.classList.contains(`${ACCEPT_VALUE}`)) {
+          elementMinutes.classList.remove(`${ACCEPT_VALUE}`);
+        }
+
+        elementMinutes.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+        elementErrorMinutes.innerHTML = arrayErrorsMinutes[1];
+      }
+
+      // Задаем стилевое оформление поля seconds, в зависимости от корректности введенного пользователем значения.
+
+      if (arrayErrorsSeconds.length === 0) {
+        if (elementSeconds.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+          elementSeconds.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+        }
+
+        elementSeconds.classList.add(`${ACCEPT_VALUE}`);
+        elementErrorSeconds.innerHTML = "";
+      } else {
+        if (elementSeconds.classList.contains(`${ACCEPT_VALUE}`)) {
+          elementSeconds.classList.remove(`${ACCEPT_VALUE}`);
+        }
+
+        elementSeconds.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+        elementErrorSeconds.innerHTML = arrayErrorsSeconds[1];
+      }
+    }
   });
 })();
