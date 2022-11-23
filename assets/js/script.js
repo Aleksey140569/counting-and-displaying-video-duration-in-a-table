@@ -174,8 +174,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
 
 (function() {
 
-  // Объявляем массив, в котором будем хранить всю необходимую для
-  // построения таблицы информацию.
+  /* Объявляем массив, в котором будем хранить всю необходимую для
+  построения таблицы информацию. */
 
   let mainArray = summary;
 
@@ -205,15 +205,15 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
     const minutesAsString = elementMinutes.value.trim();
     const secondsAsString = elementSeconds.value.trim();
 
-    // Переменные для храния наличия ошибок в введенных 
-    // пользоватем значений.
+    /* Переменные для храния наличия ошибок в введенных пользоватем 
+    значений. */
 
     let arrayErrorsName;
     let arrayErrorsHours;
     let arrayErrorsMinutes;
     let arrayErrorsSeconds;
 
-	arrayErrorsName = [];
+    arrayErrorsName = [];
     arrayErrorsHours = [];
     arrayErrorsMinutes = [];
     arrayErrorsSeconds = [];
