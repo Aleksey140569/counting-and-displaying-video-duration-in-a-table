@@ -218,8 +218,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
     arrayErrorsMinutes = [];
     arrayErrorsSeconds = [];
 
-	// Делаем проверку полей формы на корректность введенных 
-    // значений.
+	// Делаем проверку полей формы на корректность введенных значений.
 
     // Валидируем поле name.
 
