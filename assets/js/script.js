@@ -2,6 +2,8 @@
 
 // Тестовые данные.
 
+const summary = [];
+
 // Константы.
 
 // Сообщения об ошибках.
@@ -40,12 +42,15 @@ const SECONDS_ERROR = "seconds-error";
 
 const ADD_RECORD = "add";
 
+// Константа формата вывода часов.
+
+const HOURS_FORMAT = "0";
+
 // Функции.
 
 // Функция проверяет передаваеммую ей строку на нулевую длину.
 
-function checkForEmptyLine(string)
-{
+function checkForEmptyLine(string) {
   let error = false;
 
   if (string.length === 0) {
@@ -58,8 +63,7 @@ function checkForEmptyLine(string)
 /* Функция проверяет, есть ли в передаваемой строке какие-нибудь
 другие символы, кроме цифр: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. */
 
-function checkNotANumber(string)
-{
+function checkNotANumber(string) {
   let error = false;
 
   const checkAllDigits = [... string];
@@ -97,8 +101,7 @@ function checkNotANumber(string)
 /* Функция проверяет введенное пользователем числовое значение,
   входит оно в определенный числовой диапазон или нет. */
 
-function checkRange(string, start, end)
-{
+function checkRange(string, start, end) {
   const number = Number(string);
   let error = false;
 
@@ -111,15 +114,13 @@ function checkRange(string, start, end)
 
 // Функция проверки правильности введенных данных.
 
-function checkData(string, func)
-{
+function checkData(string, func) {
   return func(string);
 }
 
 // Функция валидации данных из формы
 
-function validateFormData(string, emptyLine, notANumber, range, start, end)
-{
+function validateFormData(string, emptyLine, notANumber, range, start, end) {
   let errors = [];
   let errorEmptyLine = false;
   let errorNotANumber = false;
@@ -170,6 +171,39 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
   return errors;
 }
 
+// Функция преобразования количества часов, минут и секун в табличную строку.
+
+function convertTimeToString(hours, minutes, seconds) {
+  let time = [];
+
+  if (hours === 0) {
+    time.push(`${HOURS_FORMAT}`);
+  } else {
+    time.push(hours);
+  }
+
+  if (minutes === 0) {
+    time.push('00');
+  } else if(minutes < 10) {
+    time.push('0' + minutes);
+  } else {
+    time.push(minutes);
+  }
+
+  if (seconds === 0) {
+    time.push('00');
+  } else if(seconds < 10) {
+    time.push('0' + seconds);
+  } else {
+    time.push(seconds);
+  }
+
+  let timeString = '';
+  timeString = time.join(':');
+
+  return timeString;
+}
+
 // События.
 
 (function() {
@@ -205,7 +239,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
     const minutesAsString = elementMinutes.value.trim();
     const secondsAsString = elementSeconds.value.trim();
 
-    /* Переменные для храния наличия ошибок в введенных пользоватем 
+    /* Переменные для храния наличия ошибок в введенных пользоватем
     значений. */
 
     let arrayErrorsName;
@@ -236,11 +270,11 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
 
     arrayErrorsSeconds = validateFormData(secondsAsString, ... VALIDATION_RULES_FOR_SECONDS);
 
-   /* Если пользователь ввел в поле допустимое значение меняем 
-    его стиль, чтоб дать понять пользователю, что данное поле он 
+   /* Если пользователь ввел в поле допустимое значение меняем
+    его стиль, чтоб дать понять пользователю, что данное поле он
     заполнил правильно, если нет меняем стили у неверно заполненых
     элементов и даем ему подсказку, что он сделал не так. Если же
-    все поля заполнены правильно, то присваиваем переменным name, 
+    все поля заполнены правильно, то присваиваем переменным name,
     hours, minutes и seconds введенные пользователем значения */
 
     let nameOfVideo, hours, minutes, seconds;
@@ -250,7 +284,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
       && arrayErrorsMinutes.length === 0
       && arrayErrorsSeconds.length === 0) {
 
-      /* Все поля заполнены правильно, поэтому присваиваем 
+      /* Все поля заполнены правильно, поэтому присваиваем
       значения полей переменным. */
 
       nameOfVideo = nameAsString;
@@ -258,7 +292,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
       minutes = Number(minutesAsString);
       seconds = Number(secondsAsString);
 
-      /* Так как мы не знаем какие классы были добавлены к полям 
+      /* Так как мы не знаем какие классы были добавлены к полям
        ранее, очищаем список классов у полей. */
 
       if (elementName.classList.contains(`${ACCEPT_VALUE}`)) {
@@ -293,8 +327,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
         elementSeconds.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
       }
 
-      /* Так как мы не знаем вводил ли до этого пользователь 
-      недопустимые значения в поля или нет, мы очищаем все 
+      /* Так как мы не знаем вводил ли до этого пользователь
+      недопустимые значения в поля или нет, мы очищаем все
       сообщения об ошибках. */
 
       elementErrorName.innerHTML = "";
@@ -302,7 +336,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
       elementErrorMinutes.innerHTML = "";
       elementErrorSeconds.innerHTML = "";
 
-      /* И в заключении мы заменяем на пустую строку все значения, 
+      /* И в заключении мы заменяем на пустую строку все значения,
       которые пользователь ввел. */
 
       elementName.value = "";
@@ -330,7 +364,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
 
     } else {
 
-      /* Задаем стилевое оформление поля name, в зависимости 
+      /* Задаем стилевое оформление поля name, в зависимости
       от корректности введенного пользователем значения. */
 
       if (arrayErrorsName.length === 0) {
@@ -343,7 +377,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
         elementErrorName.innerHTML = arrayErrorsName[1];
       }
 
-      /* Задаем стилевое оформление поля hours, в зависимости 
+      /* Задаем стилевое оформление поля hours, в зависимости
       от корректности введенного пользователем значения. */
 
       if (arrayErrorsHours.length === 0) {
@@ -362,7 +396,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
         elementErrorHours.innerHTML = arrayErrorsHours[1];
       }
 
-      /* Задаем стилевое оформление поля minutes, в зависимости 
+      /* Задаем стилевое оформление поля minutes, в зависимости
       от корректности введенного пользователем значения. */
 
       if (arrayErrorsMinutes.length === 0) {
@@ -381,7 +415,7 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
         elementErrorMinutes.innerHTML = arrayErrorsMinutes[1];
       }
 
-      /* Задаем стилевое оформление поля seconds, в зависимости 
+      /* Задаем стилевое оформление поля seconds, в зависимости
       от корректности введенного пользователем значения. */
 
       if (arrayErrorsSeconds.length === 0) {
