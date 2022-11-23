@@ -174,7 +174,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
 
 (function() {
 
-  // Объявляем массив, в котором будем хранить всю необходимую для построения таблицы информацию.
+  // Объявляем массив, в котором будем хранить всю необходимую для
+  // построения таблицы информацию.
 
   let mainArray = summary;
 
@@ -204,7 +205,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
     const minutesAsString = elementMinutes.value.trim();
     const secondsAsString = elementSeconds.value.trim();
 
-    // Переменные для храния наличия ошибок в введенных пользоватем значений.
+    // Переменные для храния наличия ошибок в введенных 
+    // пользоватем значений.
 
     let arrayErrorsName;
     let arrayErrorsHours;
@@ -216,7 +218,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
     arrayErrorsMinutes = [];
     arrayErrorsSeconds = [];
 
-	// Делаем проверку полей формы на корректность введенных значений.
+	// Делаем проверку полей формы на корректность введенных 
+    // значений.
 
     // Валидируем поле name.
 
@@ -234,7 +237,12 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
 
     arrayErrorsSeconds = validateFormData(secondsAsString, ... VALIDATION_RULES_FOR_SECONDS);
 
-	/* Если пользователь ввел в поле допустимое значение меняем его стиль, чтоб дать понять пользователю, что данное поле он заполнил правильно, если нет меняем стили у неверно заполненых элементов и даем ему подсказку, что он сделал не так. Если же все поля заполнены правильно, то присваиваем переменным name, hours, minutes и seconds введенные пользователем значения */
+	/* Если пользователь ввел в поле допустимое значение меняем 
+    его стиль, чтоб дать понять пользователю, что данное поле он 
+    заполнил правильно, если нет меняем стили у неверно заполненых
+    элементов и даем ему подсказку, что он сделал не так. Если же
+    все поля заполнены правильно, то присваиваем переменным name, 
+    hours, minutes и seconds введенные пользователем значения */
 
     let nameOfVideo, hours, minutes, seconds;
 
@@ -243,14 +251,16 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
       && arrayErrorsMinutes.length === 0
       && arrayErrorsSeconds.length === 0) {
 
-      // Все поля заполнены правильно, поэтому присваиваем значения полей переменным.
+      /* Все поля заполнены правильно, поэтому присваиваем 
+      значения полей переменным. */
 
       nameOfVideo = nameAsString;
       hours = Number(hoursAsString);
       minutes = Number(minutesAsString);
       seconds = Number(secondsAsString);
 
-      // Так как мы не знаем какие классы были добавлены к полям ранее, очищаем список классов у полей.
+      /* Так как мы не знаем какие классы были добавлены к полям 
+       ранее, очищаем список классов у полей. */
 
       if (elementName.classList.contains(`${ACCEPT_VALUE}`)) {
         elementName.classList.remove(`${ACCEPT_VALUE}`);
@@ -284,14 +294,17 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
         elementSeconds.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
       }
 
-      // Так как мы не знаем вводил ли до этого пользователь недопустимые значения в поля или нет, мы очищаем все сообщения об ошибках.
+      /* Так как мы не знаем вводил ли до этого пользователь 
+      недопустимые значения в поля или нет, мы очищаем все 
+      сообщения об ошибках. */
 
       elementErrorName.innerHTML = "";
       elementErrorHours.innerHTML = "";
       elementErrorMinutes.innerHTML = "";
       elementErrorSeconds.innerHTML = "";
 
-      // И в заключении мы заменяем на пустую строку все значения, которые пользователь ввел.
+      /* И в заключении мы заменяем на пустую строку все значения, 
+      которые пользователь ввел. */
 
       elementName.value = "";
       elementHours.value = "";
@@ -318,7 +331,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
 
     } else {
 
-      // Задаем стилевое оформление поля name, в зависимости от корректности введенного пользователем значения.
+      /* Задаем стилевое оформление поля name, в зависимости 
+      от корректности введенного пользователем значения. */
 
       if (arrayErrorsName.length === 0) {
         elementName.classList = "";
@@ -330,7 +344,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
         elementErrorName.innerHTML = arrayErrorsName[1];
       }
 
-      // Задаем стилевое оформление поля hours, в зависимости от корректности введенного пользователем значения.
+      /* Задаем стилевое оформление поля hours, в зависимости 
+      от корректности введенного пользователем значения. */
 
       if (arrayErrorsHours.length === 0) {
         if (elementHours.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
@@ -348,7 +363,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
         elementErrorHours.innerHTML = arrayErrorsHours[1];
       }
 
-      // Задаем стилевое оформление поля minutes, в зависимости от корректности введенного пользователем значения.
+      /* Задаем стилевое оформление поля minutes, в зависимости 
+      от корректности введенного пользователем значения. */
 
       if (arrayErrorsMinutes.length === 0) {
         if (elementMinutes.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
@@ -366,7 +382,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end)
         elementErrorMinutes.innerHTML = arrayErrorsMinutes[1];
       }
 
-      // Задаем стилевое оформление поля seconds, в зависимости от корректности введенного пользователем значения.
+      /* Задаем стилевое оформление поля seconds, в зависимости 
+      от корректности введенного пользователем значения. */
 
       if (arrayErrorsSeconds.length === 0) {
         if (elementSeconds.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
