@@ -46,11 +46,20 @@ const ADD_RECORD = "add";
 
 const HOURS_FORMAT = "0";
 
+// Класс для вырыванивания данных в ячейках
+
+const TEXT_ALIGN_CENTER = "text-align-center";
+
+// Класс для добавления 25 пикселов в виде paddinga с правой стороны.
+
+const PADDING_RIGHT_25PX = "padding-right-25px";
+
 // Функции.
 
 // Функция проверяет передаваеммую ей строку на нулевую длину.
 
-function checkForEmptyLine(string) {
+function checkForEmptyLine(string)
+{
   let error = false;
 
   if (string.length === 0) {
@@ -63,7 +72,8 @@ function checkForEmptyLine(string) {
 /* Функция проверяет, есть ли в передаваемой строке какие-нибудь
 другие символы, кроме цифр: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. */
 
-function checkNotANumber(string) {
+function checkNotANumber(string)
+{
   let error = false;
 
   const checkAllDigits = [... string];
@@ -101,7 +111,8 @@ function checkNotANumber(string) {
 /* Функция проверяет введенное пользователем числовое значение,
   входит оно в определенный числовой диапазон или нет. */
 
-function checkRange(string, start, end) {
+function checkRange(string, start, end)
+{
   const number = Number(string);
   let error = false;
 
@@ -114,13 +125,15 @@ function checkRange(string, start, end) {
 
 // Функция проверки правильности введенных данных.
 
-function checkData(string, func) {
+function checkData(string, func)
+{
   return func(string);
 }
 
 // Функция валидации данных из формы
 
-function validateFormData(string, emptyLine, notANumber, range, start, end) {
+function validateFormData(string, emptyLine, notANumber, range, start, end)
+{
   let errors = [];
   let errorEmptyLine = false;
   let errorNotANumber = false;
@@ -173,7 +186,8 @@ function validateFormData(string, emptyLine, notANumber, range, start, end) {
 
 // Функция преобразования количества часов, минут и секун в табличную строку.
 
-function convertTimeToString(hours, minutes, seconds) {
+function convertTimeToString(hours, minutes, seconds)
+{
   let time = [];
 
   if (hours === 0) {
@@ -204,6 +218,62 @@ function convertTimeToString(hours, minutes, seconds) {
   return timeString;
 }
 
+// Функция, которая высчитывает длину видео в секундах, по переданной ей длительности видео в часах, минутух и секундах.
+
+function convertTimeToSeconds(hours, minutes, seconds)
+{
+  let hoursInSeconds = hours * 3600;
+  let minutesInSeconds = minutes * 60;
+  let tempTimeInSeconds = hoursInSeconds + minutesInSeconds + seconds;
+
+  return tempTimeInSeconds;
+}
+
+// Функция, которая длительность видео в секундах преобразовывает в длительность видео в часах, минутах и секундах.
+
+function convertSecondsToTime(timeInSeconds)
+{
+  let hoursInSeconds = timeInSeconds - (timeInSeconds % 3600);
+  let hours = hoursInSeconds / 3600;
+  let remainderInSeconds = timeInSeconds % 3600;
+  let minutesInSeconds = remainderInSeconds - (remainderInSeconds % 60);
+  let minutes = minutesInSeconds / 60;
+  let seconds = remainderInSeconds % 60;
+  let timeString = convertTimeToString(hours, minutes, seconds);
+
+  return timeString;
+}
+
+// Функция вывода данных в таблицу
+
+function displayTable(array, element)
+{
+  element.innerHTML = "";
+
+  array.forEach(function(record, index) {
+    let [name, duration, totalDuration] = record;
+
+    const tableRow = `
+      <tr>
+        <td class="${TEXT_ALIGN_CENTER}">
+          ${index + 1}
+        </td>
+        <td class="${PADDING_RIGHT_25PX}">
+          ${name}
+        </td>
+        <td class="${TEXT_ALIGN_CENTER}">
+          ${duration}
+        </td>
+        <td class="${TEXT_ALIGN_CENTER}">
+          ${totalDuration}
+        </td>
+      </tr>
+    `;
+
+    element.insertAdjacentHTML('beforeend', tableRow);
+  });
+}
+
 // События.
 
 (function() {
@@ -212,6 +282,10 @@ function convertTimeToString(hours, minutes, seconds) {
   построения таблицы информацию. */
 
   let mainArray = summary;
+
+  // Объявляем переменную, в которой будем хранить общую длительность видио в секундах.
+
+  let totalVideoDuration = 0;
 
   // Помещаем элементы input в соответствующие константы.
 
@@ -227,6 +301,10 @@ function convertTimeToString(hours, minutes, seconds) {
   const elementErrorHours = document.getElementById(`${HOURS_ERROR}`);
   const elementErrorMinutes = document.getElementById(`${MINUTES_ERROR}`);
   const elementErrorSeconds = document.getElementById(`${SECONDS_ERROR}`);
+
+  // Элемент внутрь которого мы помещаем данные для показа ввиде таблицы.
+
+  const tbody = document.querySelector('tbody');
 
   document.getElementById(`${ADD_RECORD}`).addEventListener('click', function() {
 
@@ -435,4 +513,15 @@ function convertTimeToString(hours, minutes, seconds) {
       }
     }
   });
+
+  if (mainArray.length !== 0) {
+    displayTable(mainArray, tbody);
+    let lastArrayElement = mainArray[mainArray.length - 1][2];
+    let tempTimeArray = lastArrayElement.split(":");
+    const [tempHoursString, tempMinutesString, tempSecondsString] = tempTimeArray;
+    let tempHours = Number(tempHoursString);
+    let tempMinutes = Number(tempMinutesString);
+    let tempSeconds = Number(tempSecondsString);
+    totalVideoDuration = convertTimeToSeconds(tempHours, tempMinutes, tempSeconds);
+  }
 })();
