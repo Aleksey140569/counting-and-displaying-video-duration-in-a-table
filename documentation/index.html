@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    Как работает данное приложение.
+  </title>
+  <link href="./assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="./assets/SynHigh/css/shCoreDefault.css" rel="stylesheet">
+  <link href="./assets/css/main.css" rel="stylesheet">
+  <script src="./assets/SynHigh/js/XRegExp.js"></script>
+  <script src="./assets/SynHigh/js/shCore.js"></script>
+  <script src="./assets/SynHigh/js/shBrushJScript.js"></script>
+  <script src="./assets/SynHigh/js/shBrushPlain.js"></script>
+  <script src="./assets/SynHigh/js/shBrushCss.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-4 text-center my-5">
+        <h1>
+          Длительность видео в таблице
+        </h1>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-1"></div>
+      <div class="col-xl-10">
+        <ul>
+          <li class="list-square">
+            <strong>  
+              Данное приложение решает следующие задачи:
+            </strong>
+          </li>
+        </ul>
+        <ul>
+          <li class="mb-3">
+            В поля формы вводиться название видео, сколько оно длится часов,  минут и секунд.
+          </li>
+          <li class="mb-3">
+            После нажатия кнопки "Добавить запись в таблицу", происходит проверка полей на правильность введенных данных.
+          </li>
+          <li class="mb-3">
+            Если данные в поле введены неверно, то поле меняет стиль. Его рамка становиться красной, а под инпутом появляется сообщение, которое объясняет, что не так с данными введенными в поле.
+          </li>
+          <li class="mb-3">
+            Проверка поля происходит на пустую строку, на то, что поле является отрицательным или не целым числом, и на то, что оно больше 59.
+          </li>
+          <li class="mb-3">
+            Если данные в поле введены верно, то поле меняет стиль. Его рамка становится зеленой.
+          </li>
+          <li class="mb-3">
+            Если все данные введенне пользователем верны, запись добавляется в таблицу, а поля очищаются от введенных в них данных.
+          </li>
+          <li class="my-3">
+            Приложение позволяет как заполнить таблицу с нуля, так задать их с помощью массива. При этом если пользователь продолжит добавлять записи в таблицу, они будут добавлены в уже существующий массив.
+          </li>
+        </ul>
+        <ul>
+          <li class="list-square">
+            <strong>  
+              Интерфейс:
+            </strong>
+          </li>
+          <li class="my-3">
+            На html-странице необходимо создать 4 элемента типа input и один элемент типа button.
+          </li>
+          <li class="my-3">
+            Второй input предназначен для получения количества в видео часов. Поэтому он имеет id hours и label содержимым которого является строка "Количество в видео часов:".
+          </li>
+          <li class="my-3">
+            Третий input предназначен для получения количества в видео минут. Поэтому он имеет id minutes и label содержимым которого является строка "Количество в видео минут:".
+          </li>
+          <li class="my-3">
+            Четвертый input предназначен для получения количества в видео секунд. Поэтому он имеет id seconds и label содержимым которого является строка "Количество в видео секунд:".
+          </li>
+          <li class="my-3">
+            Под этими элементами находится элемент button c id add и содержимым в виде строки "Добавить запись в таблицу".
+          </li>
+          <li class="my-3">
+            Перед закрывающим тегом body идет подключения js-скрипта с названием "script.js" с помощью элемента script.
+          </li>
+        </ul>
+        <ul>
+          <li class="list-square">
+            <strong>  
+              Код в файле script.js
+            </strong>
+          </li>
+          <li class="my-3 list-none">
+            С помощью дерективы 'use strict'; активируем строгий режим. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              'use strict';
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Создаем функцию, которая выполнится лишь один раз за всю работу скрипта. Она нужна лишь для того, чтобы в ней разместить все обработчики событий. Это нужно для того, что бы с помощь замыкания созадать статические переменные, которые будут хранить данные между вызовами функции в обработчике события. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              (function  {
+
+              }) ;
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем константу в которой будет храниться индификатор кнопки, с помощью которой мы добовляем запись в таблицу. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const ADD_RECORD = "add";
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Создаем обработчик кнопки добавления записи в таблицу. Для большей гибкости используем в качестве индификатора шаблонную строку и константу ADD_RECORD. За это отвчает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              document.getElementById(`${ADD_RECORD}`).addEventListener('click', function  {
+
+              }) ;
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем константы, в которых будет храниться индификаторы полей формы. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const NAME_OF_VIDEO_FIELD = "name";
+              const HOURS_FIELD = "hours";
+              const MINUTES_FIELD = "minutes";
+              const SECONDS_FIELD = "seconds";
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Внутри обработчика события "click" на элементе button с помощью DOM получаем сами элементы типа input и помещаем их в соответветствующие переменные. Это делается для того, чтоб в дальнейшем была возможность манипулировать ими. Например: менять стили в зависимости правильно или неправильно были введены данные в конкретный инпут. В качестве индификаторов для метода getElementById  используем соответветствующие константы, чтоб была возможность не привязываться жетстко к верстке файла. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const elementName = document.getElementById(`${NAME_OF_VIDEO_FIELD}`);
+              const elementHours = document.getElementById(`${HOURS_FIELD}`);
+              const elementMinutes = document.getElementById(`${MINUTES_FIELD}`);
+              const elementSeconds = document.getElementById(`${SECONDS_FIELD}`);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Перед тем, как проверить введенные данные поместим данные из инпутов в соотвующие константы: nameAsString, hoursAsString, minutesAsString и secondsAsString, предворительно обрезав все пробелы в начале и конце строки. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const elementName = document.getElementById(`${NAME_OF_VIDEO_FIELD}`);
+              const elementHours = document.getElementById(`${HOURS_FIELD}`);
+              const elementMinutes = document.getElementById(`${MINUTES_FIELD}`);
+              const elementSeconds = document.getElementById(`${SECONDS_FIELD}`);
+            </pre>
+          </li>
+          <li class="list-square">
+            <strong>  
+              Что может быть не так с введенными пользователем данными:
+            </strong>
+          </li>
+          <li class="my-3">
+            Занчение в введенное пользователем может быть пустой строкой. Этот тип ошибки может быть актуальным для элементов input со следующими id: name, hours, minutes и seconds.
+          </li>
+          <li class="my-3">
+            Значение введенное пользователем может не быть целым положительным числом. Этот тип ошибки может быть актуальным для элементов input со следующими id: hours, minutes и seconds.
+          </li>
+          <li class="my-3">
+            Значение введенное пользователем может не быть целым положительным числом больше 59. Этот тип ошибки может быть актуальным для элементов input со следующими id: minutes и seconds.
+          </li>
+          <li class="my-3 list-none">
+            Для проверки данных создадим функцию checkData(string, func). Она принимает данные введенные пользователем в соответствующее поле и коллбэк функцию, которая проверяет есть ли ошибки определенного типа в этом поле или нет. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function checkData(string, func)
+              {
+                return func(string);
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            В качестве callback-функции она может принимимать следующие функции: функция checkEmptyLine , checkNotANumber  и checkRange .
+          </li>
+          <li class="my-3 list-none">
+            Функция checkForEmptyLine(string) проверяет передаваемую ей строку на нулевую длину. Если у строки нулевая длина, значит пользователь ничего не   ввел. В этом случае функция возращает значение false.
+          </li>
+          <li class="my-3 list-none">
+            Код функции checkEmptyLine :
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function checkForEmptyLine(string)
+              {
+                let error = false;
+        
+                if (string.length === 0) {
+                  error = true;
+                }
+        
+                return error;
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Данная функция работает следующим образом. Передаем в качестве аргумента функции строку. Объявляем переменную error и сразу же инициализируем ее значени нием false. Затем в условной конструкции if находим длину строки и при помощи строгого оператора сравнения сравниваем ее с нулем. Если условие в конструкции if истинно, присваиваем переменной значение true. После чего в независимости от результатов работы условной конструкции if возвращаем из функции значение переменной error.
+          </li>
+          <li class="my-3 list-none">
+            Функция checkNotANumber  проверяет, есть ли в передаваемой строке какие-нибудь другие символы, кроме цифр: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. Есть ли в строке есть другие символы (например: "-" или ".") либо какие-нибудь дргие символы, то это может означать введенное пользователем значение является отрицательным, не целым или тем и другим одновременно либо не является числом, так как целое положительное число и число 0 может содержать лишь цифры от 0 до 9.
+          </li>
+          <li class="my-3 list-none">
+            Код функции checkNotANumber :
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function checkNotANumber(string)
+              {
+                let error = false;
+              
+                const checkAllDigits = [... string];
+              
+                for (const item of checkAllDigits) {
+                  switch(item) {
+                    case '0':
+                      break;
+                    case '1':
+                      break;
+                    case '2':
+                      break;
+                    case '3':
+                      break;
+                    case '4':
+                      break;
+                    case '5':
+                      break;
+                    case '6':
+                      break;
+                    case '7':
+                      break;
+                    case '8':
+                      break;
+                    case '9':
+                      break;
+                    default:
+                      error = true;
+                  }
+                }
+              
+                return error;
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Данная функция работает следующим образом. Передаем в качестве аргумента функции строку. Объявялем переменную error, которой сразу же присваеваем значение false. Затем с помощью оператора spread помещаем каждую букву строки в массив checkAllDigits. С помощью цикла for...of проходимся по массиву помещая каждый символ в переменную item. Затем с помощью конструкции switch создаем "белый список" разрешенных символов. В нашем случае это все цифры от 0 до 9. Если символ есть в нашем "белом списке", то есть мы находим подходящий нам case, то просто переходим на следующую итерацию. Если данного символа нет в "белом списке", то конструкция switch не находит нужного case, и тогда срабатывает default, в котором переменной error присваивается значение false. После того, как массив for...of обойдет весь массив checkAllDigits, возвращаем из функции значение переменной error.
+          </li>
+          <li class="my-3 list-none">
+            Функция checkRange  проверяет введенное пользователем числовое значение, входит оно в определенный числовой диапазон или нет. Она получает в качестве аргументов числовую строку, начальное значение числового диапазона, и конечное значение числового  диапазона. Если введенное значение находится в выбраном числовом дипазоне функция возращает значение false, если нет то true.
+          </li>
+          <li class="my-3 list-none">
+            Код данной функции:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function checkRange(string, start, end)
+              {
+                const number = Number(string);
+                let error = false;
+        
+                if (number &lt; start || number &gt; end) {
+                  error = true;
+                }
+        
+                return error;
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Данная функция работает следующим образом. Функция принимает строковое значение и с помощью метода Number  преобразует его в число. После этого объявляется переменная error, которой присваивается значение false. Затем в условной конструкции if и оператора ИЛИ сравнивается значение number с переменными strat и end. Если number меньше strat и больше end, то переменной error присваивается значение true. После чего функция возращает значение переменной error.
+          </li>
+          <li class="my-3 list-none">
+            Объявим константы в которых будут храниться индификаторы элементов p, в которых будут выводиться сообщения об ошибках. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const NAME_ERROR = "name-error";
+              const HOURS_ERROR = "hours-error";
+              const MINUTES_ERROR = "minutes-error";
+              const SECONDS_ERROR = "seconds-error";
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Создадим константы в которые поместим html-элементы типа p (параграф), которые будут содержать сообщения об ошибках. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const elementErrorName = document.getElementById(`${NAME_ERROR}`);
+              const elementErrorHours = document.getElementById(`${HOURS_ERROR}`);
+              const elementErrorMinutes = document.getElementById(`${MINUTES_ERROR}`);
+              const elementErrorSeconds = document.getElementById(`${SECONDS_ERROR}`);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Так же создадим четыре переменные: arrayErrorsName, arrayErrorsHours, arrayErrorsMinutes и arrayErrorsSeconds и сразу же пронициализируем их пустым массивом. В них мы будем помещать значение, которое будет сигнализировать об ошибке. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              let arrayErrorsName;
+              let arrayErrorsHours;
+              let arrayErrorsMinutes;
+              let arrayErrorsSeconds;
+
+              arrayErrorsName = [];
+              arrayErrorsHours = [];
+              arrayErrorsMinutes = [];
+              arrayErrorsSeconds = [];
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Теперь мы должны проверить данные из каждого поля на корректность введенных данных, и если все в поля формы введены данные их значения присвоить переменным, с которыми мы будем работать дальше. Если же какое-то из полей имеет некоректные данные визуально показать какое из полей имеет коректные данные, а какое некоректные и для поля с некоректными данными вывести сообщение об ошибке. Если все данные коректны очистить поля от введенных в них данных и продолжить работу дальше.
+          </li>
+          <li class="my-3 list-none">
+            Функция checkData  принимает в качестве коллбэк функции введенное пользователем значения и названия одной из следующих функций: checkForEmptyLine , checkNotANumber , checkRange . Код данной функции:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function checkData(string, func)
+              {
+                return func(string);
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Так же, чтобы проверки введенных данных могла коректно работать, нам надо обявить несколько констант: EMPTY_STRING, NOT_A_NUMBER, OUT_OF_RANGE. Каждая из них будет содержать код ошибки, которую увидит пользователь если введет некоректное значение в поле. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const EMPTY_STRING = 'Данное поле не может быть пустым.';
+              const NOT_A_NUMBER = 'В данное поле необходимо ввести 0 или целое число больше 0.';
+              const OUT_OF_RANGE = 'В данное поле необходимо ввести 0 или целое число не больше 59.';
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Функция validateFormData  будет проверять коректность введенных данных. Она проверяет введенные данные на то, что значение в поле не является пустой строкой, то что оно является целым положительным числом, и то что она находится в нужном нам диапазоне (в нашем случае от 0 до 59). Она принимает строку введенную пользователем и массив в котором мы будем хранить параметры валидации. Код данной функции:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function validateFormData(string, emptyLine, notANumber, range, start, end)
+              {
+                let errors = [];
+                let errorEmptyLine = false;
+                let errorNotANumber = false;
+                let errorRange = false;
+
+                if (emptyLine) {
+                  errorEmptyLine = checkData(string, checkForEmptyLine);
+
+                  if (errorEmptyLine) {
+                    errors.push(true);
+                    errors.push(`${EMPTY_STRING}`);
+                  }
+                }
+
+                if (notANumber) {
+                  errorNotANumber = checkData(string, checkNotANumber);
+
+                  if (errorNotANumber) {
+                    if (errors.length === 0) {
+                      errors.push(true);
+                      errors.push(`${NOT_A_NUMBER}`);
+                    } else {
+                      errors[1] = `${NOT_A_NUMBER}`;
+                    }
+                  }
+                }
+
+                if (range) {
+                  errorRange = checkData(string, checkRange
+                    .bind(
+                      checkRange,
+                      string,
+                      start,
+                      end
+                    )
+                  );
+
+                  if (errorRange) {
+                    if (errors.length === 0) {
+                      errors.push(true);
+                    errors.push(`${OUT_OF_RANGE}`);
+                    }   else {
+                    errors[1] = `${OUT_OF_RANGE}`;
+                    }
+                  }
+                }
+
+                return errors;
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Данная функция работает следующим образом...
+          </li>
+          <li class="my-3 list-none">
+            <ol>
+              <li class="my-3">
+                В качестве параметров функция принимает строку введенную пользователем (string), три булевых значения (emptyLine, notANumber, range) - проверка на пустую строку, является ли введенное пользователем значение числом и находится ли оно в определенном диапазоне или нет, и два числовых значения (start и end), которые как раз и задают этот числовой дипазон.
+              </li>
+              <li class="my-3">
+                Далее инициализируется переменная errors, которая сразу же инициализируется пустым массивом. Так же объявляются переменные errorEmptyLine, errorNotANumber и errorRange, которые так же сразу же инициализируются значениями false.
+              </li>
+              <li class="my-3">
+                Переменная errorEmptyLine будет иметь значение true или false в зависимости от того, является ли введенное пользотелем значение пустой строкой или нет.
+              </li>
+              <li class="my-3">
+                Переменная errorNotANumber будет иметь значение true или false в зависимости от того, может ли значение введенное в пользователем быть преобразованно в значение ноль (или в другое целое неотрицательное число).
+              </li>
+              <li class="my-3">
+                Переменная errorRange будет иметь значение true или false в зависимости от того входит ли значение введенное пользователем в диапазон чисел задаваемых значениями параметров start и end или нет.
+              </li>
+              <li class="my-3">
+                Теперь, когда мы объявили все необходимые для работы функции переменные, мы можем приступить к проверке введенного пользователем значения.
+              </li>
+              <li class="my-3">
+                Если параметр emptyLine имеет значение true, то с помощью условной конструкции if мы проверяем является ли введенное пользователем число пустой строкой или нет. Если значение параметра равно true, то в теле условной конструкции if вызывается функция checkData , которой в качестве аргументов передается значение введенное пользователем (аргумент string) и коллбэк функция checkForEmptyLine. Функция checkForEmptyLine ввозращает значение true или false в зависимости от введенного значения. Это значение мы присваиваем значению переменной errorEmptyLine.
+              </li>
+              <li class="my-3">
+                После этого при помощи условной конструкции if мы проверяем значение переменной errorEmptyLine на булево значение. Если значение равно true, то введенное пользователем значение является пустой строкой. При помощи метода push  помещаем в массив значение error и шаблонную строку, в которую вставляем значение константы EMPTY_STRING ("Данное поле не может быть пустым.").
+              </li>
+              <li class="my-3">
+                Если параметр notANumber имеет значение true, то с помощью условной конструкции if мы проверяем можно ли преобразовать введенное пользователем значение в значение 0 (или целое неотрицательное число) или нет. Если значение параметра равно true, то в теле условной конструкции if вызывается функция checkData , которой в качестве аргументов передается значения введенное пользователем (аргумент string) и коллбэк функция checkRange. Функция checkRange ввозращает значение true или false в зависимости от введенного значения. Это значение мы присваиваем значению переменной errorNotANumber.
+              </li>
+              <li class="my-3">
+                После этого при помощи условной конструкции if мы проверяем значение переменной errorNotANumber на булево значение. Если значение равно true, то введенное пользователем то введенное пользователем значение не может быть преобразовано к значнию 0 (или целому не отрицательному числу).
+              </li>
+              <li class="my-3">
+                Перед тем как записывать что-то в массив errors мы должны проверить длину массива errors, так как предыдущая проверка на то является ли введенное значение пустой строкой или нет, могло изменить длину массива. Поэтому с помощью условной конструкции проверяем является ли длина массива еrorrs нулю, и если да то при помощи метода push  помещаем в массив значение true и шаблонную строку в которую вставляем значение константы NOT_A_NUMBER ("В данное поле необходимо ввести 0 или целое число больше 0.").
+              </li>
+              <li class="my-3">
+                Если же длина массива errors больше 0, то с помощью конструкции else перезаписываем значенее второго элемента errors массива на шаблонную строку в которую вставлена значение константы NOT_A_NUMBER ("В данное поле необходимо ввести 0 или целое число больше 0.").
+              </li>
+              <li class="my-3">
+                Если параметр range имеет значение true, то с помощью условной конструкции if мы проверяем находится ли введенное пользователем значение целым неотрицательным в числом в заданном диапазоне. Если значение параметра равно true, то в теле условной конструкции if вызывается функция checkData , которой в качестве аргументов передается значение введенное пользователем (аргумент string) и коллбэк функция checkRange. Так функция checkRange является коллбэк функцией и не может на прямую принимать параметры, то мы с помощью метода bind  передаем их в функцию. Функция checkRange ввозращает значение true или false в зависимости от введенного значения. Это значение мы присваиваем значению переменной errorRange.
+              </li>
+              <li class="my-3">
+                Перед тем как записывать что-то в массив errors мы должны проверить длину массива errors, так как предыдущие проверки на то является ли введенное значение пустой строкой или нет, а так же проверка на то, что введенное значение, могли изменить длину массива. Поэтому с помощью условной конструкции проверяем является ли длина массива еrorrs нулю, и если да то при помощи метода push  помещаем в массив значение true и шаблонную строку в которую вставляем значение константы OUT_OF_RANGE ("В данное поле необходимо ввести 0 или целое число не больше 59.").
+              </li>
+              <li class="my-3">
+                После того, как все проверки пройдены функция возвращает массив errors.
+              </li>
+            </ol>
+          </li>
+          <li class="my-3 list-none">
+            Прежде чем двигаться дальше объявим четыре констаны с правилами валидации: VALIDATION_RULES_FOR_NAME, VALIDATION_RULES_FOR_HOURS, VALIDATION_RULES_FOR_MINUTES и VALIDATION_RULES_FOR_SECONDS. В них в виде массива мы запишем правила валидации отдельных полей. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+                const VALIDATION_RULES_FOR_NAME = [true, false, false, undefined, undefined];
+                const VALIDATION_RULES_FOR_HOURS = [true, true, false, undefined, undefined];
+                const VALIDATION_RULES_FOR_MINUTES = [true, true, true, 0, 59];
+                const VALIDATION_RULES_FOR_SECONDS = [true, true, true, 0, 59];
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Затем в обработчике события click на кнопке с индификатором находящемся в константе ADD_RECORD вызываем функцию validateFormData  для каждого значения полученного из формы. И с помощью параметров задаем на какие ошибки необходимо проверить каждое значение. Так как, если так можно выразиться у каждого поля своя глубина проверки. Так поле name проверяется лишь на то, чтоб введенное пользователем значение не было пустой строкой. Поле hours помимо этого так же проверяется на то, чтоб введенное пользователем число можно было преобразовать в число 0 или любое другое целое число больше нуля. Поля minutes и hours помимо всех этих проверок, так же проходят проверку, чтобы введенное пользователем число было не меньше 0 и не больше 59. Чтобы избежать случайных ошибок при задании правил валидации, мы их записали выше в виде констант, которым присвоенны массивы с правилами валидации. В списке аргументов функции validateFormData , мы просто деструктуируем их. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+                arrayErrorsName = validateFormData(nameAsString, ... VALIDATION_RULES_FOR_NAME);
+                arrayErrorsHours = validateFormData(hoursAsString, ... VALIDATION_RULES_FOR_HOURS);
+                arrayErrorsMinutes = validateFormData(minutesAsString, ... VALIDATION_RULES_FOR_MINUTES);
+                arrayErrorsSeconds = validateFormData(secondsAsString, ... VALIDATION_RULES_FOR_SECONDS);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Прежде, чем двигаться дальше мы так же должны объявить константы в которых будем хранить названия классов. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const ACCEPT_VALUE = "accept";
+              const DO_NOT_ACCEPT_VALUE = "error";
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            А так же объявить переменные в которых будем хранить название видео, количество часов, минут и секунд. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              let nameOfVideo, hours, minutes, seconds;
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Теперь просто проверив длину массива с ошибками для конкретного поля, мы можем точно сказать есть ли в нем ошибки или нет. Если длина массива равна нулю, то пользователь ввел допустимое значение, если же больше, то значение поля является некорректным. В этом случае в первом элементом массива является значение true, что указывает на ошибку, а вторым элементом массива является значение строкового типа. Эту строку в дальнейшем мы покажем пользователю в качестве сообщения об ошибке. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              if (arrayErrorsName.length === 0
+                && arrayErrorsHours.length === 0
+                && arrayErrorsMinutes.length === 0
+                && arrayErrorsSeconds.length === 0) {
+
+                nameOfVideo = nameAsString;
+                hours = Number(hoursAsString);
+                minutes = Number(minutesAsString);
+                seconds = Number(secondsAsString);
+
+                if (elementName.classList.contains(`${ACCEPT_VALUE}`)) {
+                  elementName.classList.remove(`${ACCEPT_VALUE}`);
+                }
+
+                if (elementName.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                  elementName.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                }
+
+                if (elementHours.classList.contains(`${ACCEPT_VALUE}`)) {
+                  elementHours.classList.remove(`${ACCEPT_VALUE}`);
+                }
+
+                if (elementHours.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                  elementHours.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                }
+
+                if (elementMinutes.classList.contains(`${ACCEPT_VALUE}`)) {
+                  elementMinutes.classList.remove(`${ACCEPT_VALUE}`);
+                }
+
+                if (elementMinutes.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                  elementMinutes.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                }
+
+                if (elementSeconds.classList.contains(`${ACCEPT_VALUE}`)) {
+                  elementSeconds.classList.remove(`${ACCEPT_VALUE}`);
+                }
+
+                if (elementSeconds.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                  elementSeconds.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                }
+
+                elementErrorName.innerHTML = "";
+                elementErrorHours.innerHTML = "";
+                elementErrorMinutes.innerHTML = "";
+                elementErrorSeconds.innerHTML = "";
+
+                elementName.value = "";
+                elementHours.value = "";
+                elementMinutes.value = "";
+                elementSeconds.value = "";
+
+              } else {
+
+                if (arrayErrorsName.length === 0) {
+                  elementName.classList = "";
+                  elementName.classList.add(`${ACCEPT_VALUE}`);
+                  elementErrorName.innerHTML = "";
+                } else {
+                  elementName.classList = "";
+                  elementName.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+                  elementErrorName.innerHTML = arrayErrorsName[1];
+                }
+
+                if (arrayErrorsHours.length === 0) {
+                  if (elementHours.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                    elementHours.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                  }
+
+                  elementHours.classList.add(`${ACCEPT_VALUE}`);
+                  elementErrorHours.innerHTML = "";
+                } else {
+                  if (elementHours.classList.contains(`${ACCEPT_VALUE}`)) {
+                    elementHours.classList.remove(`${ACCEPT_VALUE}`);
+                  }
+
+                  elementHours.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+                  elementErrorHours.innerHTML = arrayErrorsHours[1];
+                }
+
+                if (arrayErrorsMinutes.length === 0) {
+                  if (elementMinutes.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                    elementMinutes.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                  }
+
+                  elementMinutes.classList.add(`${ACCEPT_VALUE}`);
+                  elementErrorMinutes.innerHTML = "";
+                } else {
+                  if (elementMinutes.classList.contains(`${ACCEPT_VALUE}`)) {
+                    elementMinutes.classList.remove(`${ACCEPT_VALUE}`);
+                  }
+
+                  elementMinutes.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+                  elementErrorMinutes.innerHTML = arrayErrorsMinutes[1];
+                }
+
+                if (arrayErrorsSeconds.length === 0) {
+                  if (elementSeconds.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                    elementSeconds.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                  }
+
+                  elementSeconds.classList.add(`${ACCEPT_VALUE}`);
+                  elementErrorSeconds.innerHTML = "";
+                } else {
+                  if (elementSeconds.classList.contains(`${ACCEPT_VALUE}`)) {
+                    elementSeconds.classList.remove(`${ACCEPT_VALUE}`);
+                  }
+
+                  elementSeconds.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+                  elementErrorSeconds.innerHTML = arrayErrorsSeconds[1];
+                }
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Данный код работает следующим образом:
+          </li>
+          <li class="my-3 list-none">
+            <ol>
+              <li class="my-3">
+                Если пользователь заполнил поле правильно, то массив ошибок пустой. Если все поля заполнены правильно, то все четыре массива с ошибками пусты. Значит достаточно проверить все четыре массива с ошибками на то, равна ли длина массива 0 (строгое равенство) и соединить все проверки при помощи оператора и (&&), то в теле условной конструкции получим код, который будет выполнятся только в том случае, когда ошибок в заполнении полей нет.
+              </li>
+              <li class="my-3">
+                Так как пользователь не допустил ошибок при заполнении формы, мы можем присвоить соответсвующим переменным значение введенные пользователем в нужные поля. При этом не стоит забывать, что в отличии от поля name, поля hours, minutes, seconds имеют числовой тип. Поэтому перед тем как присвоить данной переменной значения поля, его при помощи Number  нужно конвертировать в число.
+              </li>
+              <li class="my-3">
+                Чтоб пользователю было легче соорентироваться в какое именно поле он ввел некорректное значение, а в какое правильное мы будем менять им стиль. Стиль отображение того, или иного html-элемента легче всего менять при помощи класса. Но здесь возникает следующая проблема... Мы не можем сказать к каким элемнтам будет добавлен класс, а каким нет. Но элементы input могут иметь собственные классы, поэтому с помощью метода contains  у свойства classList проверяем наличие у данного элемента определенного класса и если он есть то удалять его при помощи метода remove . И так как мы не хотим привязывать пользователя к определенным нами названиям классов, мы удаляем класс, название которого содержится в константе ACCEPT_VALUE.
+              </li>
+              <li class="my-3">
+                Так же мы не знаем какие сообщения об ошибках мы уже выводили пользователю. Поэтому очищаем содержимое всех элементов p, которые предназначены для вывода сообщений об ошибках. Делается это путем присваивания свойсву innerHTML пустой строки.
+              </li>
+              <li class="my-3">
+                Так же мы очищаем все введенные пользователем значения путем присваивания свойству value элемента input пустой строки.
+              </li>
+              <li class="my-3">
+                Если же хотя-бы один из массивов с обшибками имеет длину больше нуля, то нужно проверить длину каждого массива с ошибками отдельно, чтоб найти в каком из них имеенно находятся информация об ошибке. Это делается с помощью условной конструкции if, в которой проверяется длина массива на строгое равенство нулю.
+              </li>
+              <li class="my-3">
+                Если длина массива равна нулю, то мы у него очищаем список его классов. Элемент input может содержать другие классы, поэтому сначала необходимо проверить, есть ли у элемента такой класс при помощи метода contain  свойства classList, и если есть, то удалить при помощи метода remove  того же свойства), после чего при помощи метода add  вставляем название класса. Название класса записано с помощью шаблонной строки в которую вставлена константа ACCEPT_VALUE. Затем очищаем сообщение об ошибке при помощи свойства innerHTML.
+              </li>
+              <li class="my-3">
+                Ели длина массива больше нуля, то мы при помощи метода contain  свойства classList проверяем есть ли у элемента класс записанный в константе ACCEPT_VALUE и если есть то удаляем при помощи метода remove  и вместо него добовляем при помощи метода add  свойства classList класс записанный в константе DO_NOT_ACCEPT_VALUE. Затем выводим сообщение об ошибке при помощи свойства innerHTML. Сообщение об ошибке является вторым элементом массива с ошибками.
+              </li>
+              <li class="my-3">
+                Те же самые операции проделываем для всех четырех полей.
+              </li>
+            </ol>
+          </li>
+          <li class="my-3 list-none">
+            Затем объявляем массив, который будет содержать всю необходимую информацию по видео. Название фильма, его продолжительность в часах, минутах и секундах и ту же инфорамцию по общей продолжительности всех видио в массиве в том же формате. Так как данные должны сохраняться между событием click на кнопке добавления материала, то объявляем внутри функции, которая выполнится лишь один раз за всю работу скрипта. Таким образом мы создадим статическую переменную, которая будет сохранять значения между вызовами коллбэк функций внутри обработчиков событий. При помощи механизма замыкания она всегда будет им доступна и может быть изменена кодом внутри них. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              let mainArray = summary;
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем массив summary. В нем в будущем мы будем хранить тестовые данные, но так как у нас их пока нет, это массив будет пустой. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const summary = [];
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем переменную internalArray, которую тут же инициализируем пустым массивом. В ней будем хранить текущую запись о видео. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              let internalArray = [];
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Сразу же при помощи метод push  добавляем в массив название видео, которое храниться в переменной nameOfVideo. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              internalArray.push(nameOfVideo);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Прежде, чем идти дальше, мы объявим константу HOURS_FORMAT. В ней мы будем хранить формат вывода часов. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const HOURS_FORMAT = "0";
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Далее объявляем функцию convertTimeToString . Она будет принимать длительность видео в часах, минутах и секундах и преобразовывать ее в табличную запись. Код данной функции:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function convertTimeToString(hours, minutes, seconds)
+              {
+                let time = [];
+          
+                if (hours === 0) {
+                  time.push(`${HOURS_FORMAT}`);
+                } else {
+                  time.push(hours);
+                }
+          
+                if (minutes === 0) {
+                  time.push('00');
+                } else if(minutes &lt; 10) {
+                  time.push('0' + minutes);
+                } else {
+                  time.push(minutes);
+                }
+          
+                if (seconds === 0) {
+                  time.push('00');
+                } else if(seconds &lt; 10) {
+                  time.push('0' + seconds);
+                } else {
+                  time.push(seconds);
+                }
+          
+                let timeString = '';
+                timeString = time.join(':');
+          
+                return timeString;
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            <ol>
+              <li class="my-3">
+                Объявлем переменную time которую сразу же после объявления инициализируем пустым массивом. В нем мы будем хранить в виде строковых литералов длительность видео в часах, минутах и секундах.
+              </li>
+              <li class="my-3">
+                С помощью условной конструкции if при помощи строгого равенства проверяем, равно ли количество часов нулю. Если равно, то с помощью метода push  в массив time помещаем значение константы HOURS_FORMAT. При этом в методе push  используем шаблонную строку.
+              </li>
+              <li class="my-3">
+                С помощью условной конструкции if при помощи строгого равенства проверяем, равно ли количество минут нулю. Если равно, то с помощью метода push  в массив time помещаем строку '00', если нет с помощью условной конструкции else if переменную minutes на то, что она меньше 10. Если это условие выполняется приписываем спереди переменной minutes строку '0' и при помощи метода push  помещаем получившуюся строку в массив time. Если оба эти условия не выполняются, то просто при помощи метода push  помещаем значение минут в массив time.
+              </li>
+              <li class="my-3">
+                Точно так же обрабатываем значение переменной seconds. 
+              </li>
+              <li class="my-3">
+                Объявляем переменную timeString и инициализируем ее пустой строкой.
+              </li>
+              <li class="my-3">
+                С помощь метода join  объеденяем все элементы массива time в одну строку используя в качестве разделителя ':' и присваиваем ее переменной timeString.
+              </li>
+              <li class="my-3">
+                Возвращаем из функции convertTimeToString  значение переменной timeString.
+              </li>
+            </ol>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем переменную timeAsString которой присваиваем результат работы функции convertTimeToString , которой мы в качестве аргументов передали значения переменных hours, minutes и seconds. В ней будет храниться длительность данного видео в виде отформотированной строки. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              let timeAsString = convertTimeToString(hours, minutes, seconds);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            С помощью метода push  помещаем значение переменной timeAsString в массив time. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              internalArray.push(timeAsString);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем переменную, в которой будем хранить общую длительность видио в секундах. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              let totalVideoDuration = 0;
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Чтобы суммировать общую длительность видео в плей-листе нужно сначала длительность нового видео перевести в секунды. За это отвечает функция convertTimeToSeconds . Она в качестве аргументов получает длительность нового видео в часах, минутах и секундах и возвращает длительность видео в секундах. Код данной функции:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function convertTimeToSeconds(hours, minutes, seconds)
+              {
+                let hoursInSeconds = hours * 3600;
+                let minutesInSeconds = minutes * 60;
+                let tempTimeInSeconds = hoursInSeconds + minutesInSeconds + seconds;
+              
+                return tempTimeInSeconds;
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Как работает данная функция. Функция в качестве параметров получает значение длительности видео в часах, минутах и секундах. Затем объявляем переменную hoursInSeconds, которой присваиваем произведение количества часов и количества секунд в одном часе. Затем объявляем переменную hoursInSeconds, которой присваиваем произведение количества минут и количества секунд в одной минуте. Объявляем переменную tempTimeInSeconds, которой присваиваем сумму переменных hoursInSeconds, minutesInSeconds, и seconds. И наконец возвращаем из функции значение переменной tempTimeInSeconds.
+          </li>
+          <li class="my-3 list-none">
+            После того, как мы объявили функцию convertTimeToSeconds( ), мы можем прибавить длительность нового видео в секундах к накопительной переменной totalVideoDuration. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              totalVideoDuration = totalVideoDuration + convertTimeToSeconds(hours, minutes, seconds);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Теперь когда нам известна длительность всех видео в таблице в секундах, надо преобразовать количество всех видео в таблице к формату часы, минуты и секунды. Это делает функция convertSecondsToTime( ). Код данной функции:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function convertSecondsToTime(timeInSeconds)
+              {
+                let hoursInSeconds = timeInSeconds - (timeInSeconds % 3600);
+                let hours = hoursInSeconds / 3600;
+                let remainderInSeconds = timeInSeconds % 3600;
+                let minutesInSeconds = remainderInSeconds - (remainderInSeconds % 60);
+                let minutes = minutesInSeconds / 60;
+                let seconds = remainderInSeconds % 60;
+                let timeString = convertTimeToString(hours, minutes, seconds);
+
+                return timeString;
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Данная функция работает следующим образом: 
+          </li>
+          <li class="my-3 list-none">
+            <ol>
+              <li class="my-3">
+                В качестве аргумента функция получает длительность видео в секундах. Затем объявляется переменная hoursInSeconds, в которой хранится количество полных часов в секундах. Оно получается если из длительности видео в секундах вычесть остаток полученный при нахождении частного общей длительности видео в секундах (переменная timeInSeconds) и 3600 (количество секунд в одном часе).
+              </li>
+              <li class="my-3">
+                Обявляем переменную hours в которую записываем общее количество полных часов. Частное количества секунд в полных часах (переменная hoursInSeconds и 3600 (количество секунд в одном часе).
+              </li>
+              <li class="my-3">
+                Объявляем переменную remainderInSeconds. В ней мы будем хранить остаток, который мы получаем после того, как разделим с остатком значение хранящееся в переменной timeInSeconds и количества секунд в одном часе (3600 секунд).
+              </li>
+              <li class="my-3">
+                Объявляем переменную minutesInSeconds. В ней мы будем хранить количество полных минут в секундах. Его мы получаем путем вычитания из остатка секунд (remainderInSeconds), (после того как мы вычли из него количество полных часов в секундах) частного остатка секунд (remainderInSeconds) и количества секунд в одной минуте (60 минут).
+              </li>
+              <li class="my-3">
+                Объявляем переменную minutes в которую записываем общее количество полных минут. Частное количества секунд в полных минутах (переменная minutesInSeconds и 60 (количество секунд в одной минуте).
+              </li>
+              <li class="my-3">
+                Обявляем переменную seconds в которую записываем количество секунд. Если количество полных минут в секундах с количеством секунд разделить с остатком на количество секунд в минуте, то в итоге получем значение секунд. Это мы как раз в данной строчке и проделываем, после чего присваиваем переменной seconds значение секунд.
+              </li>
+              <li class="my-3">
+                Полсе этого обявляем переменную timeString. Ей присваиваем результат вызова функции convertTimeToString( ), которой передаем значения переменных: hours, minutes и seconds. Функция возращает длительность видео в нужном нам формате. Возращенное функцией convertTimeToString( ) значение присваиваем переменной timeString.
+              </li>
+              <li class="my-3">
+                Далее возращаем из функции значение переменной timeString.
+              </li>
+            </ol>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем переменную totalTimeAsString. Ей передаем результат вызова функции totalTimeAsString( ), которой передаем значение переменной totalVideoDuration. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              let totalTimeAsString = convertSecondsToTime(totalVideoDuration);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Теперь можно добавить при помощи метода push( ) значение переменной totalTimeAsString в массив totalTimeAsString. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              internalArray.push(totalTimeAsString);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Все данные для новой строки в таблице готовы. Поэтому мы при помощи метода push( ) добавляем массив internalArray. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              mainArray.push(internalArray);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем константы TEXT_ALIGN_CENTER и PADDING_RIGHT_25PX. В них будут храниться названия классов для добавления классов выравнивания текста и паддинга с правой стороны для некоторых ячеек. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const TEXT_ALIGN_CENTER = "text-align-center";
+              const PADDING_RIGHT_25PX = "padding-right-25px";
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Далее объявляем функцию displayTable( ). Она будет выводить данные в таблицу.
+Код данной функции:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              function displayTable(array, element)
+              {
+                element.innerHTML = "";
+
+                array.forEach(function(record, index) {
+                  let [name, duration, totalDuration] = record;
+
+                  const tableRow = `
+                    &lt;tr&gt;
+                      &lt;td class="${TEXT_ALIGN_CENTER}"&gt;
+                        ${index + 1}
+                      &lt;/td&gt;
+                      <td class="${PADDING_RIGHT_25PX}">
+                        ${name}
+                      &lt;/td&gt;
+                      &lt;td class="${TEXT_ALIGN_CENTER}">
+                        ${duration}
+                      &lt;/td>
+                      &lt;td class="${TEXT_ALIGN_CENTER}"&gt;
+                        ${totalDuration}
+                      &lt;/td&gt;
+                    &lt;/tr&gt;
+                  `;
+
+                  element.insertAdjacentHTML('beforeend', tableRow);
+                });
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Данная функция работает следующим образом...
+          </li>
+          <li class="my-3 list-none">
+            <ol>
+              <li class="my-3">
+                Функции displayTable в качестве аргументов передаются следующие переменные элемент в который будет вставлен html-код и массив по которому мы пройдемеся с помощью метода forEach( ).
+              </li>
+              <li class="my-3">
+                Затем в переменную element с помощью свойства innerHTML вставляем пустую строку.
+              </li>
+              <li class="my-3">
+                С помощью метода forEach( ) проходим по массиву array и коллбэк функции два параметра record и index.
+              </li>
+              <li class="my-3">
+                Затем деструктуируем массив record и записываем каждый элемент в соответствующие переменные: name, duration и totalDuration.
+              </li>
+              <li class="my-3">
+                Объявляем константу tableRow, в которую с помощью шаблонных строк в констату tableRow значения переменных name, duration и totalDuration.
+              </li>
+              <li class="my-3">
+                После чего с помощью метода insertAdjacentHTML( ) выводим шаблон, который находится в константе tableRow. Так же в качестве параметра этому методу мы передаем значение параметр beforeend, чтобы последние записи выводились в конце таблицы.
+              </li>
+            </ol>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем константу tbody в которую помещаем html-элемент tbody. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              const tbody = document.querySelector('tbody');
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Объявляем константу tbody в которую помещаем html-элемент tbody. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              displayTable(mainArray, tbody);
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Но что делать, если массив mainArray изначально уже есть данные и нам нужно еще до того, как мы начнем добавлять записи в таблицу отобразить его? Поэтому после проверки на то, что его длина больше 0, мы должны отобразить данные в таблице и вычислить значение переменной totalVideoDuration, чтобы дальнейшая работа скрипта была корректной. За это отвечает следующий код:
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              if (mainArray.length !== 0) {
+                displayTable(mainArray, tbody);
+                let lastArrayElement = mainArray[mainArray.length - 1][2];
+                let tempTimeArray = lastArrayElement.split(":");
+                const [tempHoursString, tempMinutesString, tempSecondsString] = tempTimeArray;
+                let tempHours = Number(tempHoursString);
+                let tempMinutes = Number(tempMinutesString);
+                let tempSeconds = Number(tempSecondsString);
+                totalVideoDuration = convertTimeToSeconds(tempHours, tempMinutes, tempSeconds);
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Как работает данный код:
+          </li>
+          <li class="my-3 list-none">
+            <ol>
+              <li class="my-3">
+                Сначала мы отображаем данные находящиеся в массиве mainArray в таблице.
+              </li>
+              <li class="my-3">
+                Затем в переменную lastArrayElement помещаем значение последнего элемента массива mainArray, а именно третьего элемента массива. В нем в виде текстовой стороки находятся данные, которые нам будет необходимы, для вычисления значения переменной totalVideoDuration.
+              </li>
+              <li class="my-3">
+                Объявляем переменную tempTimeArray. При помощи метода split(), которому в качестве разделителя передаем символ ":" превращаем значение содержащееся в переменной lastArrayElement (В ней содержится общая длительность всех видео в виде строки) в массив. Результат этих действий помещаем в переменную tempTimeArray.
+              </li>
+              <li class="my-3">
+                Делаем диструкутуризацию массива tempTimeArray. Значения элементов помещаеем в переменные tempHoursString, tempMinutesString, tempSecondsString соответственно.
+              </li>
+              <li class="my-3">
+                Объявляем переменные tempHours, tempMinutes, tempSeconds которым присваиваем значения пременных tempHoursString, tempMinutesString, tempSecondsString перед этим приведя тип значени хранящиеся в этих переменных к числовому типу.
+              </li>
+              <li class="my-3">
+                Присваиваем переменной totalVideoDuration результат выполнения работы функции convertTimeToSeconds( ), которой в качестве параметров передаем значения переменных tempHoursString, tempMinutesString, tempSecondsString.
+              </li>
+            </ol>
+          </li>
+          <li class="my-3 list-none">
+            Код index.html
+          </li>
+          <li class="list-none">
+            <pre class="brush: plain;">
+              &lt;!DOCTYPE html&gt;
+              &lt;html lang="en"&gt;
+                &lt;head&gt;
+                &lt;meta charset="UTF-8"&gt;
+                &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+                &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                &lt;title>
+                  Приложение подсчета и вывода длительности видео в таблицу. Страница 1.
+                &lt;/title&gt;
+                &lt;link rel="stylesheet" href="assets/css/main.css"&gt;
+                &lt;/head&gt;
+                &lt;body&gt;
+                  &lt;div&gt;
+                    &lt;table&gt;
+                      &lt;thead&gt;
+                        &lt;tr&gt;
+                          &lt;th&gt;
+                            №
+                          &lt;/th&gt;
+                          &lt;th&gt;
+                            Название видео
+                          &lt;/th&gt;
+                          &lt;th&gt;
+                            Длительность видео
+                          &lt;/th&gt;
+                          &lt;th&gt;
+                            Длительность всех видео
+                          &lt;/th&gt;
+                        &lt;/tr&gt;
+                      &lt;/thead&gt;
+                    &lt;tbody&gt;&lt;/tbody&gt;    
+                  &lt;/table&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;label for="name"&gt;
+                    Название видео:
+                  &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;input id="name" type="text"&gt;
+                  &lt;p id="name-error" class="error-message"&gt;&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;label for="hours"&gt;
+                    Количество в видео часов:
+                  &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;input id="hours" type="text"&gt;
+                  &lt;p id="hours-error" class="error-message">&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;label for="minutes"&gt;
+                    Количество в видео минут:
+                  &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;input id="minutes" type="text">
+                  &lt;p id="minutes-error" class="error-message"&gt;&lt;/p>
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;label for="seconds"&gt;
+                    Количество в видео секунд:
+                  &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;input id="seconds" type="text"&gt;
+                  &lt;p id="seconds-error" class="error-message"&gt;&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;button id="add"&gt;
+                    Добавить запись в таблицу
+                  &lt;/button&gt;
+                &lt;/div&gt;
+                &lt;script src="assets/js/script.js"&gt;&lt;/script&gt;>  
+              &lt;/body&gt;
+              &lt;/html&gt;
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Код main.css
+          </li>
+          <li class="list-none">
+            <pre class="brush: css;">
+              body {
+                font-family: Arial, Helvetica, sans-serif;
+              }
+              
+              div {
+                margin: 10px 0 5px 20px;
+              }
+              
+              input {
+                width: 200px;
+              }
+              
+              button {
+                margin: 15px 0 0 0;
+              }
+              
+              .text-align-center {
+                text-align: center;
+              }
+              
+              .error {
+               border: 1px solid #ff0000;
+              }
+              
+              .correct {
+                border: 1px solid #00ff00;
+              }
+              
+              .error-message {
+                color: #ff0000;
+              }
+              
+              table {
+                border-collapse: collapse;
+              }
+              
+              th,
+              td {
+                border: 1px solid #222222;
+                padding: 5px 5px 5px 5px;
+              }
+              
+              th {
+                padding: 5px 15px 5px 15px;
+              }
+              
+              .padding-right-25px {
+                padding: 5px 25px 5px 5px;
+              }
+            </pre>
+          </li>
+          <li class="my-3 list-none">
+            Код script.js
+          </li>
+          <li class="list-none">
+            <pre class="brush: js;">
+              'use strict';
+
+              // Тестовые данные.
+
+              const summary = [];
+
+              // Константы.
+
+              // Сообщения об ошибках.
+
+              const EMPTY_STRING = 'Данное поле не может быть пустым.';
+              const NOT_A_NUMBER = 'В данное поле необходимо ввести 0 или целое число больше 0.';
+              const OUT_OF_RANGE = 'В данное поле необходимо ввести 0 или целое число не больше 59.';
+
+              // Правила валидации.
+
+              const VALIDATION_RULES_FOR_NAME = [true, false, false, undefined, undefined];
+              const VALIDATION_RULES_FOR_HOURS = [true, true, false, undefined, undefined];
+              const VALIDATION_RULES_FOR_MINUTES = [true, true, true, 0, 59];
+              const VALIDATION_RULES_FOR_SECONDS = [true, true, true, 0, 59];
+
+              // Константы классов для элементов типа input.
+
+              const ACCEPT_VALUE = "accept";
+              const DO_NOT_ACCEPT_VALUE = "error";
+
+              // Константы индификаторов полей формы.
+
+              const NAME_OF_VIDEO_FIELD = "name";
+              const HOURS_FIELD = "hours";
+              const MINUTES_FIELD = "minutes";
+              const SECONDS_FIELD = "seconds";
+
+              // Константы индификаторов для вывода ошибок.
+
+              const NAME_ERROR = "name-error";
+              const HOURS_ERROR = "hours-error";
+              const MINUTES_ERROR = "minutes-error";
+              const SECONDS_ERROR = "seconds-error";
+
+              // Константа инидификатора кнопки добавления записи в таблицу.
+
+              const ADD_RECORD = "add";
+
+              // Константа формата вывода часов.
+
+              const HOURS_FORMAT = "0";
+
+              // Класс для вырыванивания данных в ячейках
+
+              const TEXT_ALIGN_CENTER = "text-align-center";
+
+              // Класс для добавления 25 пикселов в виде paddinga с правой стороны.
+
+              const PADDING_RIGHT_25PX = "padding-right-25px";
+
+              // Функции.
+
+              // Функция проверяет передаваеммую ей строку на нулевую длину.
+
+              function checkForEmptyLine(string)
+              {
+                let error = false;
+
+                if (string.length === 0) {
+                  error = true;
+                }
+
+                return error;
+              }
+
+              /* Функция проверяет, есть ли в передаваемой строке какие-нибудь
+              другие символы, кроме цифр: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. */
+
+              function checkNotANumber(string)
+              {
+                let error = false;
+
+                const checkAllDigits = [... string];
+
+                for (const item of checkAllDigits) {
+                  switch(item) {
+                    case '0':
+                      break;
+                    case '1':
+                      break;
+                    case '2':
+                      break;
+                    case '3':
+                      break;
+                    case '4':
+                      break;
+                    case '5':
+                      break;
+                    case '6':
+                      break;
+                    case '7':
+                      break;
+                    case '8':
+                      break;
+                    case '9':
+                      break;
+                    default:
+                      error = true;
+                  }
+                }
+
+                return error;
+              }
+
+              /* Функция проверяет введенное пользователем числовое значение,
+                входит оно в определенный числовой диапазон или нет. */
+
+              function checkRange(string, start, end)
+              {
+                const number = Number(string);
+                let error = false;
+
+                if (number < start || number > end) {
+                  error = true;
+                }
+
+                return error;
+              }
+
+              // Функция проверки правильности введенных данных.
+
+              function checkData(string, func)
+              {
+                return func(string);
+              }
+
+              // Функция валидации данных из формы
+
+              function validateFormData(string, emptyLine, notANumber, range, start, end)
+              {
+                let errors = [];
+                let errorEmptyLine = false;
+                let errorNotANumber = false;
+                let errorRange = false;
+
+                if (emptyLine) {
+                  errorEmptyLine = checkData(string, checkForEmptyLine);
+
+                  if (errorEmptyLine) {
+                    errors.push(true);
+                    errors.push(`${EMPTY_STRING}`);
+                  }
+                }
+
+                if (notANumber) {
+                  errorNotANumber = checkData(string, checkNotANumber);
+
+                  if (errorNotANumber) {
+                    if (errors.length === 0) {
+                      errors.push(true);
+                      errors.push(`${NOT_A_NUMBER}`);
+                    } else {
+                      errors[1] = `${NOT_A_NUMBER}`;
+                    }
+                  }
+                }
+
+                if (range) {
+                  errorRange = checkData(string, checkRange
+                    .bind(
+                      checkRange,
+                      string,
+                      start,
+                      end
+                    )
+                  );
+
+                  if (errorRange) {
+                    if (errors.length === 0) {
+                      errors.push(true);
+                      errors.push(`${OUT_OF_RANGE}`);
+                    } else {
+                      errors[1] = `${OUT_OF_RANGE}`;
+                    }
+                  }
+                }
+
+                return errors;
+              }
+
+              // Функция преобразования количества часов, минут и секун в табличную строку.
+
+              function convertTimeToString(hours, minutes, seconds)
+              {
+                let time = [];
+
+                if (hours === 0) {
+                  time.push(`${HOURS_FORMAT}`);
+                } else {
+                  time.push(hours);
+                }
+
+                if (minutes === 0) {
+                  time.push('00');
+                } else if(minutes < 10) {
+                  time.push('0' + minutes);
+                } else {
+                  time.push(minutes);
+                }
+
+                if (seconds === 0) {
+                  time.push('00');
+                } else if(seconds < 10) {
+                  time.push('0' + seconds);
+                } else {
+                  time.push(seconds);
+                }
+
+                let timeString = '';
+                timeString = time.join(':');
+
+                return timeString;
+              }
+
+              // Функция, которая высчитывает длину видео в секундах, по переданной ей длительности видео в часах, минутух и секундах.
+
+              function convertTimeToSeconds(hours, minutes, seconds)
+              {
+                let hoursInSeconds = hours * 3600;
+                let minutesInSeconds = minutes * 60;
+                let tempTimeInSeconds = hoursInSeconds + minutesInSeconds + seconds;
+
+                return tempTimeInSeconds;
+              }
+
+              // Функция, которая длительность видео в секундах преобразовывает в длительность видео в часах, минутах и секундах.
+
+              function convertSecondsToTime(timeInSeconds)
+              {
+                let hoursInSeconds = timeInSeconds - (timeInSeconds % 3600);
+                let hours = hoursInSeconds / 3600;
+                let remainderInSeconds = timeInSeconds % 3600;
+                let minutesInSeconds = remainderInSeconds - (remainderInSeconds % 60);
+                let minutes = minutesInSeconds / 60;
+                let seconds = remainderInSeconds % 60;
+                let timeString = convertTimeToString(hours, minutes, seconds);
+
+                return timeString;
+              }
+
+              // Функция вывода данных в таблицу
+
+              function displayTable(array, element)
+              {
+                element.innerHTML = "";
+
+                array.forEach(function(record, index) {
+                  let [name, duration, totalDuration] = record;
+
+                  const tableRow = `
+                    <tr>
+                      <td class="${TEXT_ALIGN_CENTER}">
+                        ${index + 1}
+                      </td>
+                      <td class="${PADDING_RIGHT_25PX}">
+                        ${name}
+                      </td>
+                      <td class="${TEXT_ALIGN_CENTER}">
+                        ${duration}
+                      </td>
+                      <td class="${TEXT_ALIGN_CENTER}">
+                        ${totalDuration}
+                      </td>
+                    </tr>
+                  `;
+
+                  element.insertAdjacentHTML('beforeend', tableRow);
+                });
+              }
+
+              // События.
+
+              (function() {
+
+                /* Объявляем массив, в котором будем хранить всю необходимую для
+                построения таблицы информацию. */
+
+                let mainArray = summary;
+
+                // Объявляем переменную, в которой будем хранить общую длительность видио в секундах.
+
+                let totalVideoDuration = 0;
+
+                // Помещаем элементы input в соответствующие константы.
+
+                const elementName = document.getElementById(`${NAME_OF_VIDEO_FIELD}`);
+                const elementHours = document.getElementById(`${HOURS_FIELD}`);
+                const elementMinutes = document.getElementById(`${MINUTES_FIELD}`);
+                const elementSeconds = document.getElementById(`${SECONDS_FIELD}`);
+
+                /* Помещаем элементы для сообщений об ошибках в соответ-
+                ствующие константы. */
+
+                const elementErrorName = document.getElementById(`${NAME_ERROR}`);
+                const elementErrorHours = document.getElementById(`${HOURS_ERROR}`);
+                const elementErrorMinutes = document.getElementById(`${MINUTES_ERROR}`);
+                const elementErrorSeconds = document.getElementById(`${SECONDS_ERROR}`);
+
+                // Элемент внутрь которого мы помещаем данные для показа ввиде таблицы.
+
+                const tbody = document.querySelector('tbody');
+
+                document.getElementById(`${ADD_RECORD}`).addEventListener('click', function() {
+
+                  /* Получаем данные из элемента input в виде строки и записываем их
+                  в соотвествующие переменные. Название типа nameAsString говорит,
+                  что данные имеют тип string */
+
+                  const nameAsString = elementName.value.trim();
+                  const hoursAsString = elementHours.value.trim();
+                  const minutesAsString = elementMinutes.value.trim();
+                  const secondsAsString = elementSeconds.value.trim();
+
+                  /* Переменные для храния наличия ошибок в введенных пользоватем
+                  значений. */
+
+                  let arrayErrorsName;
+                  let arrayErrorsHours;
+                  let arrayErrorsMinutes;
+                  let arrayErrorsSeconds;
+
+                  arrayErrorsName = [];
+                  arrayErrorsHours = [];
+                  arrayErrorsMinutes = [];
+                  arrayErrorsSeconds = [];
+
+                  // Делаем проверку полей формы на корректность введенных значений.
+
+                  // Валидируем поле name.
+
+                  arrayErrorsName = validateFormData(nameAsString, ... VALIDATION_RULES_FOR_NAME);
+
+                  // Валидируем поле hours.
+
+                  arrayErrorsHours = validateFormData(hoursAsString, ... VALIDATION_RULES_FOR_HOURS);
+
+                  // Валидируем поле minutes.
+
+                  arrayErrorsMinutes = validateFormData(minutesAsString, ... VALIDATION_RULES_FOR_MINUTES);
+
+                  // Валидируем поле minutes.
+
+                  arrayErrorsSeconds = validateFormData(secondsAsString, ... VALIDATION_RULES_FOR_SECONDS);
+
+                /* Если пользователь ввел в поле допустимое значение меняем
+                  его стиль, чтоб дать понять пользователю, что данное поле он
+                  заполнил правильно, если нет меняем стили у неверно заполненых
+                  элементов и даем ему подсказку, что он сделал не так. Если же
+                  все поля заполнены правильно, то присваиваем переменным name,
+                  hours, minutes и seconds введенные пользователем значения */
+
+                  let nameOfVideo, hours, minutes, seconds;
+
+                  if (arrayErrorsName.length === 0
+                    && arrayErrorsHours.length === 0
+                    && arrayErrorsMinutes.length === 0
+                    && arrayErrorsSeconds.length === 0) {
+
+                    /* Все поля заполнены правильно, поэтому присваиваем
+                    значения полей переменным. */
+
+                    nameOfVideo = nameAsString;
+                    hours = Number(hoursAsString);
+                    minutes = Number(minutesAsString);
+                    seconds = Number(secondsAsString);
+
+                    /* Так как мы не знаем какие классы были добавлены к полям
+                    ранее, очищаем список классов у полей. */
+
+                    if (elementName.classList.contains(`${ACCEPT_VALUE}`)) {
+                      elementName.classList.remove(`${ACCEPT_VALUE}`);
+                    }
+
+                    if (elementName.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                      elementName.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                    }
+
+                    if (elementHours.classList.contains(`${ACCEPT_VALUE}`)) {
+                      elementHours.classList.remove(`${ACCEPT_VALUE}`);
+                    }
+
+                    if (elementHours.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                      elementHours.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                    }
+
+                    if (elementMinutes.classList.contains(`${ACCEPT_VALUE}`)) {
+                      elementMinutes.classList.remove(`${ACCEPT_VALUE}`);
+                    }
+
+                    if (elementMinutes.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                      elementMinutes.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                    }
+
+                    if (elementSeconds.classList.contains(`${ACCEPT_VALUE}`)) {
+                      elementSeconds.classList.remove(`${ACCEPT_VALUE}`);
+                    }
+
+                    if (elementSeconds.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                      elementSeconds.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                    }
+
+                    /* Так как мы не знаем вводил ли до этого пользователь
+                    недопустимые значения в поля или нет, мы очищаем все
+                    сообщения об ошибках. */
+
+                    elementErrorName.innerHTML = "";
+                    elementErrorHours.innerHTML = "";
+                    elementErrorMinutes.innerHTML = "";
+                    elementErrorSeconds.innerHTML = "";
+
+                    /* И в заключении мы заменяем на пустую строку все значения,
+                    которые пользователь ввел. */
+
+                    elementName.value = "";
+                    elementHours.value = "";
+                    elementMinutes.value = "";
+                    elementSeconds.value = "";
+
+                    let internalArray = [];
+
+                    internalArray.push(nameOfVideo);
+
+                    let timeAsString = convertTimeToString(hours, minutes, seconds);
+
+                    internalArray.push(timeAsString);
+
+                    totalVideoDuration = totalVideoDuration + convertTimeToSeconds(hours, minutes, seconds);
+
+                    let totalTimeAsString = convertSecondsToTime(totalVideoDuration);
+
+                    internalArray.push(totalTimeAsString);
+
+                    mainArray.push(internalArray);
+
+                    displayTable(mainArray, tbody);
+
+                  } else {
+
+                    /* Задаем стилевое оформление поля name, в зависимости
+                    от корректности введенного пользователем значения. */
+
+                    if (arrayErrorsName.length === 0) {
+                      elementName.classList = "";
+                      elementName.classList.add(`${ACCEPT_VALUE}`);
+                      elementErrorName.innerHTML = "";
+                    } else {
+                      elementName.classList = "";
+                      elementName.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+                      elementErrorName.innerHTML = arrayErrorsName[1];
+                    }
+
+                    /* Задаем стилевое оформление поля hours, в зависимости
+                    от корректности введенного пользователем значения. */
+
+                    if (arrayErrorsHours.length === 0) {
+                      if (elementHours.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                        elementHours.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                      }
+
+                      elementHours.classList.add(`${ACCEPT_VALUE}`);
+                      elementErrorHours.innerHTML = "";
+                    } else {
+                      if (elementHours.classList.contains(`${ACCEPT_VALUE}`)) {
+                        elementHours.classList.remove(`${ACCEPT_VALUE}`);
+                      }
+
+                      elementHours.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+                      elementErrorHours.innerHTML = arrayErrorsHours[1];
+                    }
+
+                    /* Задаем стилевое оформление поля minutes, в зависимости
+                    от корректности введенного пользователем значения. */
+
+                    if (arrayErrorsMinutes.length === 0) {
+                      if (elementMinutes.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                        elementMinutes.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                      }
+
+                      elementMinutes.classList.add(`${ACCEPT_VALUE}`);
+                      elementErrorMinutes.innerHTML = "";
+                    } else {
+                      if (elementMinutes.classList.contains(`${ACCEPT_VALUE}`)) {
+                        elementMinutes.classList.remove(`${ACCEPT_VALUE}`);
+                      }
+
+                      elementMinutes.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+                      elementErrorMinutes.innerHTML = arrayErrorsMinutes[1];
+                    }
+
+                    /* Задаем стилевое оформление поля seconds, в зависимости
+                    от корректности введенного пользователем значения. */
+
+                    if (arrayErrorsSeconds.length === 0) {
+                      if (elementSeconds.classList.contains(`${DO_NOT_ACCEPT_VALUE}`)) {
+                        elementSeconds.classList.remove(`${DO_NOT_ACCEPT_VALUE}`);
+                      }
+
+                      elementSeconds.classList.add(`${ACCEPT_VALUE}`);
+                      elementErrorSeconds.innerHTML = "";
+                    } else {
+                      if (elementSeconds.classList.contains(`${ACCEPT_VALUE}`)) {
+                        elementSeconds.classList.remove(`${ACCEPT_VALUE}`);
+                      }
+
+                      elementSeconds.classList.add(`${DO_NOT_ACCEPT_VALUE}`);
+                      elementErrorSeconds.innerHTML = arrayErrorsSeconds[1];
+                    }
+                  }
+                });
+
+                if (mainArray.length !== 0) {
+                  displayTable(mainArray, tbody);
+                  let lastArrayElement = mainArray[mainArray.length - 1][2];
+                  let tempTimeArray = lastArrayElement.split(":");
+                  const [tempHoursString, tempMinutesString, tempSecondsString] = tempTimeArray;
+                  let tempHours = Number(tempHoursString);
+                  let tempMinutes = Number(tempMinutesString);
+                  let tempSeconds = Number(tempSecondsString);
+                  totalVideoDuration = convertTimeToSeconds(tempHours, tempMinutes, tempSeconds);
+                }
+              })();
+            </pre>
+          </li>
+        </ul>
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
+  <script>
+    SyntaxHighlighter.all();
+  </script>
+  <script src="./assets/bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+</html>
